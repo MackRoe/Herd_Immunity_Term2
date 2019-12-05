@@ -12,9 +12,6 @@ class Virus:
         self.mortality_num = mortality_num
         # a float number between 0.0 and 1.0
 
-    def did_survive_infection(self):
-        pass
-
     def print_population(self):
         '''prints out each person in the population'''
         pass
