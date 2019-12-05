@@ -1,6 +1,6 @@
 # Herd Immunity Simulation
 
-a basic simulation of herd immunity by modeling how a virus moves through a population where some (but not all) of a population is vaccinated against this virus.
+A basic simulation of herd immunity by modeling how a virus moves through a population where some (but not all) of a population is vaccinated against this virus.
 
 *This is the Final Project for CS1.1*
 
@@ -16,3 +16,12 @@ a basic simulation of herd immunity by modeling how a virus moves through a popu
 - During the interactions, make note of any new individuals infected on this turn. After the interactions are over, we will change the .infected attribute of all newly infected individuals to True.
 - Resolve the states of all individuals that started the turn infected by determining if they die or survive the infection, and change the appropriate attributes.
 - The simulation should output a logfile that contains a record of every interaction that occurred during the simulation. We will use this logfile to determine final statistics and answer questions about the simulation.
+
+# Questions
+
+1. What were the inputs you gave the simulation? (Population size, percent vaccinated, virus name, mortality rate, reproductive rate)
+2. What percentage of the population became infected at some point before the virus burned out?
+3. What percentage of the population died from the virus?
+4. Out of all interactions sick individuals had during the entire simulation, how many total interactions did we see where a vaccination saved a person from potentially becoming infected?
+
+[Answers](answers.txt)
