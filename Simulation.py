@@ -24,14 +24,14 @@ class Simulation:
 
         self.file_writer = FileWriter(resultsfilename)
 
-
     def create_population(self):
-        '''Creates the population (a list of Person objects) consisting of initial infected people, initial healthy non-vaccinated people, and
+        '''Creates the population (a list of Person objects) consisting of
+        initial infected people, initial healthy non-vaccinated people, and
         initial healthy vaccinated people. Adds them to the population list'''
 
         for i in range(self.initial_infected):
-        	person = Person(False, virus)
-        	self.population.append(person)
+            person = Person(False, virus)
+            self.population.append(person)
 
         for i in range(self.initial_healthy):
             person = Person(False, None)
@@ -42,7 +42,27 @@ class Simulation:
             self.population.append(person)
 
     def print_population(self):
-        '''Prints out every person in the population and their current attributes'''
+        '''Prints out every person in the population and their current
+        attributes'''
+        for person in self.population:
+            count = 0
+            alive_or_not = None
+            vac_or_not = None
+            if person.is_alive():
+                alive_or_not = "alive"
+            else:
+                alive_or_not = "not alive"
+            if person.is_vaccinated():
+                vac_or_not = "vaccinated"
+            else:
+                vac_or_not = "not vaccinated"
+            if infected is None:
+                infected_or_not = "not infected"
+            else:
+                infected_or_not = "infected"
+            print(f"Person {count} is {alive_or_not}, is {vac_or_not}")
+            print(f"  and is {infected_or_not}")
+            count += 1
         #TODO: finish this method
 
     def get_infected(self):
