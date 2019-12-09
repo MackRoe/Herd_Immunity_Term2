@@ -70,7 +70,7 @@ class Simulation:
         as a list'''
         infected_people = []
         for person in self.population:
-            if person.virus != None:
+            if person.infection != None:
                 infected_people.append(person)
         return infected_people
         #TODO: test this method
@@ -78,16 +78,27 @@ class Simulation:
 
     def simulation_should_continue(self):
         '''Determines whether the simulation should continue.
-        If everyone in the population is dead then return False, the simulation should not continue
+        If everyone in the population is dead then return False, the simulation
+        should not continue
         If everyone in the population is vaccinated return False
-        If there are no more infected people left and everyone is either vaccinated or dead return False
+        If there are no more infected people left and everyone is either
+        vaccinated or dead return False
         In all other cases return True'''
-        #TODO: finish this method
+        infected = get_infected()
+        if population_size == total_dead:
+            return False
+        elif population_size == total_vaccinated:
+            return False
+        elif len(infected) == 0 and population_size == total_vaccinated + total_dead:
+            return False
+        else:
+            return True
+        #TODO: test this method
 
 
     def run(self):
-        ''' This method should run the simulation until all requirements for ending
-        the simulation are met.
+        ''' This method should run the simulation until all requirements for
+        ending the simulation are met.
         '''
 
         self.create_population()
@@ -103,10 +114,11 @@ class Simulation:
         #keep looping until the simulation ends
         while self.simulation_should_continue():
 
-            #save the current infected
+            # save the current infected
             old_infected = self.get_infected()
             self.time_step(old_infected)
-            #time step will create newly infected people, just determine the survivial of the previous infected people
+            # time step will create newly infected people, just determine the
+            # survivial of the previous infected people
             self.determine_survival(old_infected)
 
             time_step_counter += 1
@@ -117,8 +129,10 @@ class Simulation:
     def determine_survival(self, infected):
         '''Check if the current infected people survive their infection
         Call the did_survive_infection() method
-        if it returns false then the person is no longer alive, does not have an infection and one is added to total dead
-        if it returns true then the person no longer has an infection and is vaccinated, one is added to total vaccinated'''
+        if it returns false then the person is no longer alive, does not have
+        an infection and one is added to total dead
+        if it returns true then the person no longer has an infection and is
+        vaccinated, one is added to total vaccinated'''
         #TODO: finish this method
 
 
