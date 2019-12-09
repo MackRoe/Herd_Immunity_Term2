@@ -23,9 +23,10 @@ class Person:
         (set the vaccinated attibute to True and the infection to None)
         Return True if they survived the infection and False if they did not.
         '''
+
         compare = random.randint(0.0, 1.0)
-        if compare < mortality_num:
-            person.is_alive = False
+        if compare < self.infection.mortality_num:
+            self.is_alive = False
             return False
         else:
             vaccinated = True

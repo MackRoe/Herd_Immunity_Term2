@@ -44,8 +44,8 @@ class Simulation:
     def print_population(self):
         '''Prints out every person in the population and their current
         attributes'''
+        count = 0
         for person in self.population:
-            count = 0
             alive_or_not = None
             vac_or_not = None
             if person.is_alive:
@@ -140,7 +140,7 @@ class Simulation:
                 sickie.is_alive = False
             elif sickie.did_survive_infection():
                 sickie.is_vaccinated = True
-                total_vaccinated += 1
+                self.total_vaccinated += 1
                 self.infection = None
         # TODO: test this method
 
