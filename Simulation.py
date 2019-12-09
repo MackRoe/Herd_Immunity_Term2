@@ -134,7 +134,7 @@ class Simulation:
         if it returns true then the person no longer has an infection and is
         vaccinated, one is added to total vaccinated'''
         survived = did_survive_infection()
-        for person in population:
+        for person in self.population:
             if not did_survive_infection(person):
                 self.infection = None
                 total_dead += 1
@@ -163,13 +163,30 @@ class Simulation:
 
 
     def interaction(self, infected, random_person):
-        '''If the infected person is the same object as the random_person return and do nothing
-        if the random person is not alive return and do nothing
-        if the random person is vaccinated return and do nothing
-        if the random person is not vaccinated:
+        '''
+        -If the infected person is the same object as the random_person
+        return and do nothing
+        -if the random person is not alive return and do nothing
+        -if the random person is vaccinated return and do nothing
+        -if the random person is not vaccinated:
             generate a random float between 0 and 1
-            if the random float is less then the infected person's virus reproduction number then the random person is infected
-            othersie the random person is vaccinated and one is added to the total vaccinated'''
+            if the random float is less then the infected person's virus
+            reproduction number then the random person is infected
+            othersie the random person is vaccinated and one is added to the
+            total vaccinated'''
+        if self.infected == self.random_person:
+            return
+        elif not self.random_person.is_alive:
+            return
+        elif self.random_person.is_vaccinated:
+            return
+        elif not self.random_person.is_vaccinated:
+            comparitor = random.random_float(0, 1)
+            if comparitor < Virus.reproduction_num:
+                self.random_person.infection = Virus()
+            else self.random_person.is_vaccinated = True
+            self.total_vaccinated += 1
+
         #TODO: finish this method
 
 
