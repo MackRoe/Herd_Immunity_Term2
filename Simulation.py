@@ -152,9 +152,13 @@ class Simulation:
         for infected_person in infected:
 
             for i in range(10):
-                #TODO: get a random index for the population list
-                #TODO: using the random index get a random person from the population
+                # get a random index for the population list
+                select = random.randint(1, int(self.population_size))
+                #TODO: using the random index get a random person from the
+                # population
+                random_person = self.population[select]
                 #TODO: call interaction() with the current infected person and the random person
+                interaction(infected_person, random_person)
                 pass
 
 
