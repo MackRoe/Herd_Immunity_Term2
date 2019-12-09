@@ -63,11 +63,17 @@ class Simulation:
             print(f"Person {count} is {alive_or_not}, is {vac_or_not}")
             print(f"  and is {infected_or_not}")
             count += 1
-        #TODO: finish this method
+            #TODO: test this method
 
     def get_infected(self):
-        '''Gets all the infected people from the population and returns them as a list'''
-        #TODO: finish this method
+        '''Gets all the infected people from the population and returns them
+        as a list'''
+        infected_people = []
+        for person in self.population:
+            if person.virus != None:
+                infected_people.append(person)
+        return infected_people
+        #TODO: test this method
 
 
     def simulation_should_continue(self):
