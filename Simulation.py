@@ -133,7 +133,16 @@ class Simulation:
         an infection and one is added to total dead
         if it returns true then the person no longer has an infection and is
         vaccinated, one is added to total vaccinated'''
-        #TODO: finish this method
+        survived = did_survive_infection()
+        for person in population:
+            if not did_survive_infection(person):
+                self.infection = None
+                total_dead += 1
+                return False
+            elif did_survive_infection(person):
+                total_vaccinated += 1
+                self.infection = None
+        #TODO: test this method
 
 
 
