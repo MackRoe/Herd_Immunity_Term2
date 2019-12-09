@@ -48,33 +48,32 @@ class Simulation:
             count = 0
             alive_or_not = None
             vac_or_not = None
-            if person.is_alive():
+            if person.is_alive:
                 alive_or_not = "alive"
             else:
                 alive_or_not = "not alive"
-            if person.is_vaccinated():
+            if person.is_vaccinated:
                 vac_or_not = "vaccinated"
             else:
                 vac_or_not = "not vaccinated"
-            if infected is None:
+            if person.infection is None:
                 infected_or_not = "not infected"
             else:
                 infected_or_not = "infected"
             print(f"Person {count} is {alive_or_not}, is {vac_or_not}")
             print(f"  and is {infected_or_not}")
             count += 1
-            #TODO: test this method
+            # TODO: test this method
 
     def get_infected(self):
         '''Gets all the infected people from the population and returns them
         as a list'''
         infected_people = []
         for person in self.population:
-            if person.infection != None:
+            if person.infection is not None:
                 infected_people.append(person)
         return infected_people
-        #TODO: test this method
-
+        # TODO: test this method
 
     def simulation_should_continue(self):
         '''Determines whether the simulation should continue.
@@ -84,17 +83,16 @@ class Simulation:
         If there are no more infected people left and everyone is either
         vaccinated or dead return False
         In all other cases return True'''
-        infected = get_infected()
-        if population_size == total_dead:
+        infected = self.get_infected()
+        if self.population_size == self.total_dead:
             return False
-        elif population_size == total_vaccinated:
+        elif self.population_size == self.total_vaccinated:
             return False
-        elif len(infected) == 0 and population_size == total_vaccinated + total_dead:
+        elif len(infected) == 0 and self.population_size == self.total_vaccinated + self.total_dead:
             return False
         else:
             return True
-        #TODO: test this method
-
+        # TODO: test this method
 
     def run(self):
         ''' This method should run the simulation until all requirements for
@@ -111,7 +109,7 @@ class Simulation:
 
         self.file_writer.init_file(self.virus, self.population_size, self.initial_vaccinated, self.initial_healthy, self.initial_infected)
 
-        #keep looping until the simulation ends
+        # keep looping until the simulation ends
         while self.simulation_should_continue():
 
             # save the current infected
@@ -133,32 +131,34 @@ class Simulation:
         an infection and one is added to total dead
         if it returns true then the person no longer has an infection and is
         vaccinated, one is added to total vaccinated'''
-        survived = did_survive_infection()
-        for person in self.population:
-            if not did_survive_infection(person):
-                self.infection = None
-                total_dead += 1
-                return False
-            elif did_survive_infection(person):
+
+        for sickie in infected:
+            survived = sickie.did_survive_infection()
+            if not sickie.did_survive_infection():
+                sickie.infection = None
+                self.total_dead += 1
+                sickie.is_alive = False
+            elif sickie.did_survive_infection():
+                sickie.is_vaccinated = True
                 total_vaccinated += 1
                 self.infection = None
-        #TODO: test this method
-
-
+        # TODO: test this method
 
     def time_step(self, infected):
-        ''' For every infected person interact with a random person from the population 10 times'''
+        ''' For every infected person interact with a random person from the
+        population 10 times'''
 
         for infected_person in infected:
 
             for i in range(10):
                 # get a random index for the population list
-                select = random.randint(1, int(self.population_size))
-                #TODO: using the random index get a random person from the
+                select = random.randint(0, int(self.population_size) - 1)
+                # TODO: using the random index get a random person from the
                 # population
                 random_person = self.population[select]
-                #TODO: call interaction() with the current infected person and the random person
-                interaction(infected_person, random_person)
+                # TODO: call interaction() with the current infected person and
+                # the random person
+                self.interaction(infected_person, random_person)
                 pass
 
 
@@ -174,20 +174,21 @@ class Simulation:
             reproduction number then the random person is infected
             othersie the random person is vaccinated and one is added to the
             total vaccinated'''
-        if self.infected == self.random_person:
+        if infected == random_person:
             return
-        elif not self.random_person.is_alive:
+        elif not random_person.is_alive:
             return
-        elif self.random_person.is_vaccinated:
+        elif random_person.is_vaccinated:
             return
-        elif not self.random_person.is_vaccinated:
-            comparitor = random.random_float(0, 1)
-            if comparitor < Virus.reproduction_num:
-                self.random_person.infection = Virus()
-            else self.random_person.is_vaccinated = True
-            self.total_vaccinated += 1
+        elif not random_person.is_vaccinated:
+            comparitor = random.uniform(0, 1)
+            if comparitor < self.virus.reproduction_num:
+                random_person.infection = self.virus
+            else:
+                random_person.is_vaccinated = True
+                self.total_vaccinated += 1
 
-        #TODO: finish this method
+        # TODO: test this method
 
 
 
@@ -210,5 +211,5 @@ if __name__ == "__main__":
 
     simulation = Simulation(initial_vaccinated, initial_infected, initial_healthy, virus, "results.txt")
 
-    #run the simulation
+    # run the simulation
     simulation.run()
