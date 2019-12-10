@@ -161,7 +161,6 @@ class Simulation:
                 self.interaction(infected_person, random_person)
                 pass
 
-
     def interaction(self, infected, random_person):
         '''
         -If the infected person is the same object as the random_person
@@ -191,19 +190,15 @@ class Simulation:
         # TODO: test this method
 
 
-
-
-
-
 if __name__ == "__main__":
 
-    #Set up the initial simulations values
-    virus_name = "Malaise"
-    reproduction_num = 0.20
-    mortality_num = .99
+    # Set up the initial simulations values
+    virus_name = "Ebola"
+    reproduction_num = 0.25
+    mortality_num = .70
 
-    initial_healthy = 10
-    initial_vaccinated = 5
+    initial_healthy = 99
+    initial_vaccinated = 0
 
     initial_infected = 1
 
